@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: sample-kube
+spec:
+  selector:
+    matchLabels:
+      app: sample-kube
+  replicas: 3 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: sample-kube
+    spec:
+      containers:
+        - name: sample-kube
+          image: sample-kube:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent # First check local docker image, if not then from dockerhub
+          ports:
+            - containerPort: 8080 # The port that the container is running on in the cluster
